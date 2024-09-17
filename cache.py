@@ -1,5 +1,6 @@
 from helper import millis
 from i18n import I18NEngine
+import database as db
 
 
 class CacheEntry:
@@ -73,5 +74,13 @@ class I18NCache(Cache):
         return engine
 
 
+class UserIDCache(Cache):
+    def cache(self, value: db.User, expiration: int = -1) -> None:
+        if not self.should_use(str(value.user_id)):
+            self._cache[str(value.user_id)] = CacheEntry(str(value.user_id), expiration)
+            return
+
+
 class Globals:
     i18n_cache = I18NCache()
+    user_id_cache = UserIDCache()
