@@ -188,6 +188,12 @@ a:visited {
     color: #3d4ac9;
 }
 
+a.no-style {
+    color: inherit;
+    cursor: inherit;
+    text-decoration: inherit;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
