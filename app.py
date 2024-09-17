@@ -8,7 +8,7 @@ def i18n_get(lang: str):
     return Globals.i18n_cache.get_or_create(lang).get
 
 
-@app.route('/')
+@app.route("/")
 def index():
     return render_template("index.html", i18n=i18n_get("en_us"))
 
