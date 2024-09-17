@@ -1,4 +1,6 @@
 button {
+    --border-color: var(--button-bottom-border);
+
     font-family: Inter, sans-serif;
     padding: 15px 40px;
     font-size: 15px;
@@ -14,16 +16,16 @@ button {
 
 button:enabled {
     cursor: pointer;
-    border-bottom: 4px solid var(--button-bottom-border);
+    border-bottom: 4px solid var(--border-color);
 }
 
 button:hover:enabled {
-    border-bottom: 8px solid var(--button-bottom-border);
+    border-bottom: 8px solid var(--border-color);
     transform: translateY(-3px);
 }
 
 button:active:enabled {
-    border-bottom: 4px solid var(--button-bottom-border);
+    border-bottom: 4px solid var(--border-color);
     transform: translateY(2px);
 }
 
