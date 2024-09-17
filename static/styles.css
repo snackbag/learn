@@ -87,6 +87,16 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.center {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
