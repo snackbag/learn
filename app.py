@@ -1,4 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+import functools
+
+from flask import Flask, render_template, redirect, url_for, request, flash, session, g
 from sqlalchemy import func
 
 import helper
@@ -13,9 +15,35 @@ def i18n_get(lang: str = "en_us"):
     return Globals.i18n_cache.get_or_create(lang).get
 
 
+@app.before_request
+def load_logged_in_user():
+    user_id = str(session.get('user_id'))
+    if not Globals.user_id_cache.should_use(user_id):
+        g.user = None
+    else:
+        g.user = user_id
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for("login"))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+
 @app.route("/")
 def index():
     return render_template("index.html", i18n=i18n_get())
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
 
 
 @app.route("/login")
