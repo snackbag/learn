@@ -10,7 +10,7 @@ def i18n_get(lang: str):
 
 @app.route('/')
 def index():
-    return render_template("index.html", i18n=i18n_get("de_de"))
+    return render_template("index.html", i18n=i18n_get("en_us"))
 
 
 if __name__ == '__main__':
