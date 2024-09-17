@@ -62,6 +62,27 @@ body {
     flex-wrap: wrap;
 }
 
+.nav-items p {
+    line-height: 12px;
+}
+
+.nav-items a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: inherit;
+    padding: 0 10px;
+    border-radius: 15px;
+    transition: 0.1s;
+}
+
+.nav-items a:visited {
+    color: inherit;
+}
+
+.nav-items a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
