@@ -1,0 +1,25 @@
+button {
+    font-family: Inter, sans-serif;
+    padding: 15px 40px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white;
+    color: #343339;
+    border-radius: 30px;
+
+    border: none;
+    border-bottom: 4px solid #d6d3d9;
+    cursor: pointer;
+
+    transition: 0.1s;
+}
+
+button:hover {
+    border-bottom: 8px solid #d6d3d9;
+    transform: translateY(-3px);
+}
+
+button:active {
+    border-bottom: 4px solid #d6d3d9;
+    transform: translateY(2px);
+}
