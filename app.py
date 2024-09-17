@@ -15,7 +15,7 @@ def index():
 
 @app.route("/login")
 def login():
-    return render_template("login.html", i18n=i18n_get())
+    return render_template("login/login.html", i18n=i18n_get())
 
 
 @app.route("/login/student")
