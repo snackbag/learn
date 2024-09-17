@@ -169,6 +169,14 @@ form {
     gap: 5px;
 }
 
+a {
+    color: #3d4ac9;
+}
+
+a:visited {
+    color: #3d4ac9;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
