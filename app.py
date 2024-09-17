@@ -20,7 +20,7 @@ def login():
 
 @app.route("/login/student")
 def login_student():
-    return render_template("base.html", i18n=i18n_get())
+    return render_template("login/student.html", i18n=i18n_get())
 
 
 @app.route("/login/teacher")
