@@ -15,6 +15,9 @@ class CacheEntry:
         self.expiration = expiration
 
     def has_expired(self):
+        if self.expiration < 0:
+            return False
+
         return self.creation + self.expiration < millis()
 
     def value_or_none(self):
