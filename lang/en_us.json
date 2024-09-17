@@ -1,3 +1,6 @@
 {
-	"home.title": "Home"
+	"home.title": "Home",
+	"nav.subjects": "Subjects",
+	"nav.about": "About us",
+	"button.login": "Sign In"
 }
