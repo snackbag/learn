@@ -18,7 +18,7 @@ def login():
     return render_template("login/login.html", i18n=i18n_get())
 
 
-@app.route("/login/student", methods=["GET, POST"])
+@app.route("/login/student", methods=["GET", "POST"])
 def login_student():
     return render_template("login/student.html", i18n=i18n_get())
 
