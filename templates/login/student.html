@@ -2,10 +2,57 @@
 {% block content %}
     <div class="center">
         <form method="post">
-            <input type="text" placeholder="{{ i18n('placeholder.classcode') }}"><br/>
-            <input type="text" placeholder="{{ i18n('placeholder.username') }}"><br/>
-            <input type="password" placeholder="{{ i18n('placeholder.password') }}"><br/>
-            <button type="submit" disabled>{{ i18n('button.login') }}</button>
+            <h1 style="margin-right: auto">{{ i18n('text.login-student') }}</h1>
+            <input minlength="8" maxlength="8" id="classcode" type="text"
+                   placeholder="{{ i18n('placeholder.classcode') }}">
+            <input minlength="2" maxlength="20" id="username" type="text"
+                   placeholder="{{ i18n('placeholder.username') }}">
+            <input minlength="4" maxlength="30" id="password" type="password"
+                   placeholder="{{ i18n('placeholder.password') }}">
+
+            <div>
+                <a href="{{ url_for('login') }}">Back</a>
+                <button class="green" id="submit" type="submit" disabled>{{ i18n('button.login') }}</button>
+            </div>
         </form>
     </div>
+
+    <script>
+        const classcode = document.querySelector("#classcode");
+        const username = document.querySelector("#username");
+        const password = document.querySelector("#password");
+        const submit = document.querySelector("#submit");
+
+        addListener(classcode);
+        addListener(username);
+        addListener(password)
+
+        async function addListener(element) {
+            element.addEventListener("keyup", async event => {
+                await check();
+            });
+        }
+
+        async function check() {
+            let i = 0;
+
+            if (classcode.value.length === 8) {
+                i++;
+            }
+
+            if (username.value.length >= 2) {
+                i++;
+            }
+
+            if (password.value.length >= 4) {
+                i++;
+            }
+
+            if (i === 3) {
+                submit.disabled = false;
+            } else {
+                submit.disabled = true;
+            }
+        }
+    </script>
 {% endblock %}
