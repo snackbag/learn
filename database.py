@@ -10,6 +10,11 @@ logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
 
 
 class User(Base):
+    """
+    0 = personal
+    1 = teacher
+    2 = student
+    """
     __tablename__ = "users"
 
     user_id = Column(Integer, autoincrement=True, primary_key=True)
