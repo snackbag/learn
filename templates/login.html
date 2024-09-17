@@ -4,15 +4,15 @@
         <h1 class="big-text">{{ i18n('account-select.title') }}</h1>
 
         <div class="login-select">
-            <div class="card">
+            <div class="card" onclick="location.replace('{{ url_for('login_personal') }}')">
                 <img src="{{ url_for('static', filename='img/oculi/personal.svg') }}">
                 <p>{{ i18n('account-select.personal') }}</p>
             </div>
-            <div class="card">
+            <div class="card" onclick="location.replace('{{ url_for('login_student') }}')">
                 <img src="{{ url_for('static', filename='img/oculi/junior.svg') }}">
                 <p>{{ i18n('account-type.student') }}!</p>
             </div>
-            <div class="card">
+            <div class="card" onclick="location.replace('{{ url_for('login_teacher') }}')">
                 <img src="{{ url_for('static', filename='img/oculi/teacher.svg') }}">
                 <p>{{ i18n('account-type.teacher') }}!</p>
             </div>
