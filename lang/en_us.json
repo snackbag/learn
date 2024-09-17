@@ -4,6 +4,8 @@
 	"nav.about": "About us",
 	"button.login": "Sign In",
 	"button.continue": "Continue",
+	"account-select.title": "I'm a...",
+	"account-select.personal": "normal person",
 	"account-type.teacher": "Teacher",
 	"account-type.student": "Student",
 	"account-type.personal": "Personal"
