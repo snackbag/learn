@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
+from sqlalchemy import func
 
 import helper
 import database as db
@@ -68,6 +69,55 @@ def register():
 
 @app.route("/register/personal", methods=["GET", "POST"])
 def register_personal():
+    if request.method == "POST":
+        if not helper.has_keys(["email", "username", "password"], request.form):
+            return "Illegal request: Request form requires email, username and password"
+
+        email = request.form["email"]
+        username = request.form["username"]
+        password = request.form["password"]
+
+        if len(email) < 8 or len(email) > 50:
+            return "Email must be between 8 and 50 characters long"
+
+        if len(username) < 4 or len(username) > 26:
+            return "Username must be between 4 and 26 characters long"
+
+        if len(password) < 8 or len(password) > 50:
+            return "Password must be between 8 and 50 characters long"
+
+        i18n = i18n_get()
+
+        email_query = db.session.query(db.User).filter(
+            func.lower(db.User.email) == func.lower(email),
+            db.User.account_type != 2
+        ).first()
+
+        if email_query is not None:
+            flash(i18n("error.exists.email"))
+
+        username_query = db.session.query(db.User).filter(
+            func.lower(db.User.username) == func.lower(username),
+            db.User.account_type != 2
+        ).first()
+
+        if username_query is not None:
+            flash(i18n("error.exists.username"))
+
+        if username_query is not None or email_query is not None:
+            return render_template("register/personal.html", i18n=i18n)
+
+        pwd = helper.create_password(password)
+
+        db.session.add(db.User(
+            account_type=0,
+            email=email,
+            username=username,
+            salt=pwd[0],
+            password=pwd[1]
+        ))
+        db.session.commit()
+
     return render_template("register/personal.html", i18n=i18n_get())
 
 
