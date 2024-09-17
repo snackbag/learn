@@ -1,3 +1,7 @@
+* {
+    --button-bottom-border: #d6d3d9;
+}
+
 html, body {
     margin: 0;
     padding: 0;
