@@ -100,6 +100,38 @@ body {
     width: 100%;
 }
 
+.big-text {
+    font-size: 70px;
+}
+
+.login-select {
+    display: flex;
+    gap: 20px;
+}
+
+.login-select .card {
+    background-color: white;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.1s;
+    border-bottom: 4px solid var(--button-bottom-border);
+}
+
+.login-select .card img {
+    height: 150px;
+    width: 150px;
+    border-radius: 30px;
+}
+
+.login-select .card:hover {
+    transform: translateY(-8px);
+}
+
+.login-select .card:active {
+    transform: scale(0.95);
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
