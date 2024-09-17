@@ -2,10 +2,12 @@
 {% block body %}
     <div class="nav">
         <div>
-            <div class="logo">
-                <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
-                <p>LEARN</p>
-            </div>
+            <a href="{{ url_for('index') }}" class="no-style">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
+                    <p>LEARN</p>
+                </div>
+            </a>
             <div class="nav-items">
                 <a href="/"><p>{{ i18n('nav.subjects') }}</p></a>
                 <a><p>{{ i18n('nav.about') }}</p></a>
