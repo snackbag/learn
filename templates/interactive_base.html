@@ -12,9 +12,15 @@
             </div>
         </div>
         <div>
-            <a href="{{ url_for('login') }}">
-                <button>{{ i18n('button.login') }}</button>
-            </a>
+            {% if g.user != None %}
+                <div class="nav-items">
+                    <a><p>Profile</p></a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}">
+                    <button>{{ i18n('button.login') }}</button>
+                </a>
+            {% endif %}
         </div>
     </div>
     <div class="content">
