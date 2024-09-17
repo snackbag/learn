@@ -169,7 +169,7 @@ def register_personal():
 
         pwd = helper.create_password(password)
 
-        db.session.add(db.User(
+        entry = db.User(
             account_type=0,
             email=email,
             username=username,
