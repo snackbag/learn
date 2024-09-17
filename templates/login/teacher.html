@@ -1,0 +1,50 @@
+{% extends 'interactive_base.html' %}
+{% block content %}
+    <div class="center">
+        <form method="post">
+            <h1 style="margin-right: auto">{{ i18n('text.login-teacher') }}</h1>
+            <input minlength="8" maxlength="50" id="email" type="email"
+                   placeholder="{{ i18n('placeholder.email') }}">
+            <input minlength="8" maxlength="50" id="password" type="password"
+                   placeholder="{{ i18n('placeholder.password') }}">
+
+            <div>
+                <a href="{{ url_for('login') }}">Register</a>
+                <button class="green" id="submit" type="submit" disabled>{{ i18n('button.login') }}</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const email = document.querySelector("#email");
+        const password = document.querySelector("#password");
+        const submit = document.querySelector("#submit");
+
+        addListener(email);
+        addListener(password)
+
+        async function addListener(element) {
+            element.addEventListener("keyup", async event => {
+                await check();
+            });
+        }
+
+        async function check() {
+            let i = 0;
+
+            if (password.value.length >= 8) {
+                i++;
+            }
+
+            if (email.value.length >= 8) {
+                i++;
+            }
+
+            if (i === 2) {
+                submit.disabled = false;
+            } else {
+                submit.disabled = true;
+            }
+        }
+    </script>
+{% endblock %}
