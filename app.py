@@ -3,8 +3,8 @@ import functools
 from flask import Flask, render_template, redirect, url_for, request, flash, session, g
 from sqlalchemy import func
 
-import helper
 import database as db
+import helper
 from cache import Globals
 
 app = Flask(__name__)
@@ -114,7 +114,10 @@ def login_personal():
             flash(i18n("error.notfound.user"))
             return render_template("login/personal.html", i18n=i18n)
 
-        flash("OK")
+        session['user_id'] = str(email_query.user_id)
+        Globals.user_id_cache.cache(email_query)
+
+        return redirect(url_for("index"))
 
     return render_template("login/personal.html", i18n=i18n_get())
 
@@ -172,8 +175,15 @@ def register_personal():
             username=username,
             salt=pwd[0],
             password=pwd[1]
-        ))
+        )
+
+        db.session.add(entry)
         db.session.commit()
+
+        session['user_id'] = str(entry.user_id)
+        Globals.user_id_cache.cache(entry)
+
+        return redirect(url_for("index"))
 
     return render_template("register/personal.html", i18n=i18n_get())
 
