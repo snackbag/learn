@@ -2,5 +2,9 @@
 	"home.title": "Home",
 	"nav.subjects": "Subjects",
 	"nav.about": "About us",
-	"button.login": "Sign In"
+	"button.login": "Sign In",
+	"button.continue": "Continue",
+	"account-type.teacher": "Teacher",
+	"account-type.student": "Student",
+	"account-type.personal": "Personal"
 }
