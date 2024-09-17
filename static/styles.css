@@ -107,6 +107,8 @@ body {
 .login-select {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .login-select .card {
