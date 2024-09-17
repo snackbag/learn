@@ -29,9 +29,16 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for("login"))
-
         return view(**kwargs)
+    return wrapped_view
 
+
+def not_logged_in(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is not None:
+            return redirect(url_for("index"))
+        return view(**kwargs)
     return wrapped_view
 
 
@@ -47,11 +54,13 @@ def logout():
 
 
 @app.route("/login")
+@not_logged_in
 def login():
     return render_template("login/login.html", i18n=i18n_get())
 
 
 @app.route("/login/student", methods=["GET", "POST"])
+@not_logged_in
 def login_student():
     if request.method == "POST":
         if not helper.has_keys(["classcode", "username", "password"], request.form):
@@ -81,11 +90,13 @@ def login_student():
 
 
 @app.route("/login/teacher", methods=["GET", "POST"])
+@not_logged_in
 def login_teacher():
     return render_template("login/teacher.html", i18n=i18n_get())
 
 
 @app.route("/login/personal", methods=["GET", "POST"])
+@not_logged_in
 def login_personal():
     if request.method == "POST":
         if not helper.has_keys(["email", "password"], request.form):
@@ -123,11 +134,13 @@ def login_personal():
 
 
 @app.route("/register")
+@not_logged_in
 def register():
     return redirect(url_for("login"))
 
 
 @app.route("/register/personal", methods=["GET", "POST"])
+@not_logged_in
 def register_personal():
     if request.method == "POST":
         if not helper.has_keys(["email", "username", "password"], request.form):
@@ -189,6 +202,7 @@ def register_personal():
 
 
 @app.route("/register/teacher", methods=["GET", "POST"])
+@not_logged_in
 def register_teacher():
     return render_template("register/teacher.html", i18n=i18n_get())
 
