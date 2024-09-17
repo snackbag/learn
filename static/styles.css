@@ -28,6 +28,7 @@ body {
     padding: 0 100px;
     box-sizing: border-box;
     flex-wrap: wrap;
+    height: 103px;
 }
 
 .nav .logo {
