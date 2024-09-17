@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from cache import Globals
 
 app = Flask(__name__)
@@ -31,6 +31,21 @@ def login_teacher():
 @app.route("/login/personal")
 def login_personal():
     return render_template("login/personal.html", i18n=i18n_get())
+
+
+@app.route("/register")
+def register():
+    return redirect(url_for("login"))
+
+
+@app.route("/register/personal")
+def register_personal():
+    return render_template("register/personal.html", i18n=i18n_get())
+
+
+@app.route("/register/teacher")
+def register_teacher():
+    return render_template("register/teacher.html", i18n=i18n_get())
 
 
 if __name__ == '__main__':
