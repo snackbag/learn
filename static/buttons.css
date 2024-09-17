@@ -32,3 +32,10 @@ button[disabled] {
     color: #fcfbfc;
     font-weight: normal;
 }
+
+button.green:enabled {
+    --border-color: #319a5f;
+
+    background-color: #29b967;
+    color: white;
+}
