@@ -3,11 +3,11 @@ from i18n import I18NEngine
 
 
 class CacheEntry:
-    def __init__(self, value, expiration: int = 300000):
+    def __init__(self, value, expiration: int):
         """
         Cache entry for the cache
         :param value: the stored value
-        :param expiration: the expiration time in milliseconds. default is 5 minutes
+        :param expiration: the expiration time in milliseconds.
         """
 
         self.value = value
@@ -15,7 +15,7 @@ class CacheEntry:
         self.expiration = expiration
 
     def has_expired(self):
-        return self.creation + self.expiration > millis()
+        return self.creation + self.expiration < millis()
 
     def value_or_none(self):
         """
@@ -30,27 +30,44 @@ class CacheEntry:
 
 class Cache:
     def __init__(self):
-        self.__cache: dict[str, CacheEntry] = {}
+        self._cache: dict[str, CacheEntry] = {}
 
-    def cache(self, value, expiration: int | None = None) -> None:
+    def cache(self, value, expiration: int = 300000) -> None:
         raise NotImplementedError("This cache has not implemented caching")
 
     def get(self, key: str):
-        return self.__cache.get(key).value_or_none()
+        get = self._cache.get(key)
+        if get is None:
+            return None
+
+        return get.value_or_none()
 
     def is_cached(self, key: str):
         return self.get(key) is not None
 
+    def should_use(self, key: str):
+        get = self.get(key)
+        if get is None:
+            return False
+
+        return True
+
 
 class I18NCache(Cache):
-    def cache(self, value: I18NEngine, expiration: int | None = None) -> None:
-        if not self.is_cached(value.language):
-            self.__cache[value.language] = CacheEntry(value)
+    def cache(self, value: I18NEngine, expiration: int = 300000) -> None:
+        if not self.should_use(value.language):
+            self._cache[value.language] = CacheEntry(value, expiration)
             return
 
-        if self.get(value.language).has_expired():
-            self.__cache[value.language] = CacheEntry(value)
-            return
+    def get_or_create(self, language: str) -> I18NEngine:
+        if self.should_use(language):
+            return self.get(language)
+
+        engine = I18NEngine(language)
+        engine.load()
+
+        self.cache(engine)
+        return engine
 
 
 class Globals:
