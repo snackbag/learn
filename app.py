@@ -1,14 +1,12 @@
 from flask import Flask, render_template
-from i18n import I18NEngine
+from cache import Globals
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    engine = I18NEngine("en_us")
-    engine.load()
-    return render_template("index.html", i18n=engine.get)
+    return render_template("index.html", i18n=Globals.i18n_cache.get_or_create("en_us").get)
 
 
 if __name__ == '__main__':
