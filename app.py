@@ -18,17 +18,17 @@ def login():
     return render_template("login/login.html", i18n=i18n_get())
 
 
-@app.route("/login/student")
+@app.route("/login/student", methods=["GET, POST"])
 def login_student():
     return render_template("login/student.html", i18n=i18n_get())
 
 
-@app.route("/login/teacher")
+@app.route("/login/teacher", methods=["GET", "POST"])
 def login_teacher():
     return render_template("login/teacher.html", i18n=i18n_get())
 
 
-@app.route("/login/personal")
+@app.route("/login/personal", methods=["GET", "POST"])
 def login_personal():
     return render_template("login/personal.html", i18n=i18n_get())
 
@@ -38,12 +38,12 @@ def register():
     return redirect(url_for("login"))
 
 
-@app.route("/register/personal")
+@app.route("/register/personal", methods=["GET", "POST"])
 def register_personal():
     return render_template("register/personal.html", i18n=i18n_get())
 
 
-@app.route("/register/teacher")
+@app.route("/register/teacher", methods=["GET", "POST"])
 def register_teacher():
     return render_template("register/teacher.html", i18n=i18n_get())
 
