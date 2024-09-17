@@ -3,6 +3,8 @@ from pathlib import Path
 
 
 class I18NEngine:
+    fallback_path = Path(f"lang/en_us.json")
+
     def __init__(self, language: str):
         self.language = language
         self.__keys = {}
@@ -13,20 +15,25 @@ class I18NEngine:
             raise Exception("I18N is already loaded to language " + self.language)
 
         # Load fallback language
-        with open(Path(f"lang/en_us.json")) as f:
-            self.__load_from_file(f)
+        if I18NEngine.fallback_path.is_file():
+            with open(I18NEngine.fallback_path) as f:
+                self.__load_from_file(f, True)
 
         # Load required language
-        with open(Path(f"lang/{self.language}.json")) as f:
-            self.__load_from_file(f)
+        if self.lang_path().is_file():
+            with open(self.lang_path()) as f:
+                self.__load_from_file(f, False)
 
         self.__loaded = True
 
-    def __load_from_file(self, f):
+    def lang_path(self):
+        return Path(f"lang/{self.language}.json")
+
+    def __load_from_file(self, f, fallback: bool):
         data: dict = json.load(f)
 
         for key in data.keys():
-            self.__keys[key] = data[key]
+            self.__keys[key] = {"value": data[key], "fallback": fallback}
 
     def get(self, key: str) -> str:
         if not self.__loaded:
@@ -34,6 +41,9 @@ class I18NEngine:
 
         get = self.__keys.get(key)
         if get is not None:
-            return get
+            if get["fallback"]:
+                print(f"Getting '{key}' from fallback language instead of {self.language}")
+
+            return get["value"]
 
         return key
