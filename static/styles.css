@@ -132,6 +132,43 @@ body {
     transform: scale(0.95);
 }
 
+input[type=text], input[type=password] {
+    padding: 15px 10px;
+    border: 0;
+    border-radius: 15px;
+    font-weight: 500;
+    outline: 0;
+    border-bottom: 2px solid white;
+    font-size: 15px;
+
+    transition: 0.1s;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    border-bottom: 2px solid #e3e3e3;
+}
+
+form div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form div button {
+    margin-left: auto;
+    max-width: 200px;
+    width: 100%;
+}
+
+form {
+    margin-right: 10px;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
