@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 {% block body %}
+    <div class="nav">
+        <div>
+            <div class="logo">
+                <object data="{{ url_for('static', filename='img/oculi/default.svg') }}"></object>
+                <p>LEARN</p>
+            </div>
+            <div class="nav-items">
+                <p>{{ i18n('nav.subjects') }}</p>
+                <p>{{ i18n('nav.about') }}</p>
+            </div>
+        </div>
+        <div>
+            <button>{{ i18n('button.login') }}</button>
+        </div>
+    </div>
     {% block content %}
     {% endblock %}
 {% endblock %}
