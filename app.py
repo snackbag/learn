@@ -30,7 +30,7 @@ def login_teacher():
 
 @app.route("/login/personal")
 def login_personal():
-    return render_template("base.html", i18n=i18n_get())
+    return render_template("login/personal.html", i18n=i18n_get())
 
 
 if __name__ == '__main__':
