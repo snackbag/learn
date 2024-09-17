@@ -19,5 +19,7 @@
 	"placeholder.classcode": "Class Code",
 	"placeholder.username": "Username",
 	"placeholder.email": "Email",
-	"placeholder.password": "Password"
+	"placeholder.password": "Password",
+	"error.notfound.class": "There is no class with the specified code",
+	"error.notfound.user": "Email or password is incorrect"
 }
