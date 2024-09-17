@@ -12,6 +12,10 @@ def i18n_get(lang: str):
 def index():
     return render_template("index.html", i18n=i18n_get("en_us"))
 
+@app.route("/login")
+def login():
+    return render_template("login.html", i18n=i18n_get())
+
 
 if __name__ == '__main__':
     app.run()
