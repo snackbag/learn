@@ -171,6 +171,15 @@ form {
     gap: 5px;
 }
 
+.flashes {
+    background-color: #fc7b7b;
+    border-bottom: 4px solid #fd4848;
+    color: white;
+    padding: 15px 30px;
+    list-style: none;
+    border-radius: 15px;
+}
+
 a {
     color: #3d4ac9;
 }
