@@ -1,6 +1,21 @@
 {% extends 'interactive_base.html' %}
 {% block content %}
     <div class="center">
-        <p>test</p>
+        <h1 class="big-text">{{ i18n('account-select.title') }}</h1>
+
+        <div class="login-select">
+            <div class="card">
+                <img src="{{ url_for('static', filename='img/oculi/personal.svg') }}">
+                <p>{{ i18n('account-select.personal') }}</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='img/oculi/junior.svg') }}">
+                <p>{{ i18n('account-type.student') }}!</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='img/oculi/teacher.svg') }}">
+                <p>{{ i18n('account-type.teacher') }}!</p>
+            </div>
+        </div>
     </div>
 {% endblock %}
