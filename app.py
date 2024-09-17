@@ -4,13 +4,14 @@ from cache import Globals
 app = Flask(__name__)
 
 
-def i18n_get(lang: str):
+def i18n_get(lang: str = "en_us"):
     return Globals.i18n_cache.get_or_create(lang).get
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", i18n=i18n_get("en_us"))
+    return render_template("index.html", i18n=i18n_get())
+
 
 @app.route("/login")
 def login():
