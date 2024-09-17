@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 
 import helper
+import database as db
 from cache import Globals
 
 app = Flask(__name__)
@@ -41,7 +42,11 @@ def login_student():
             return "Password must be between 4 and 30 characters long"
 
         i18n = i18n_get()
-        flash(i18n("error.notfound.class"))
+
+        query = db.session.query(db.ClassCode).filter_by(key=classcode).first()
+
+        if query is None:
+            flash(i18n("error.notfound.class"))
 
     return render_template("login/student.html", i18n=i18n_get())
 
