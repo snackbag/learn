@@ -50,11 +50,21 @@ class Cache:
         return self.get(key) is not None
 
     def should_use(self, key: str):
+        if key is None:
+            return False
+
         get = self.get(key)
         if get is None:
             return False
 
         return True
+
+
+class NothingCache(Cache):
+    def cache(self, value, expiration: int = 300000) -> None:
+        if not self.should_use(str(value)):
+            self._cache[str(value)] = CacheEntry(None, expiration)
+            return
 
 
 class I18NCache(Cache):
@@ -75,10 +85,29 @@ class I18NCache(Cache):
 
 
 class UserIDCache(Cache):
+    user_check_cache = NothingCache()
+
     def cache(self, value: db.User, expiration: int = -1) -> None:
         if not self.should_use(str(value.user_id)):
             self._cache[str(value.user_id)] = CacheEntry(str(value.user_id), expiration)
+            self.user_check_cache.cache(str(value.user_id))
             return
+
+    def should_use(self, key: str):
+        value = super().should_use(key)
+
+        if key == "None":
+            return False
+
+        if value is True:
+            return True
+
+        if not self.user_check_cache.should_use(key):
+            query = db.session.query(db.User).filter_by(user_id=int(key)).first()
+            self.user_check_cache.cache(key)
+            return query is not None
+
+        return value
 
 
 class Globals:
