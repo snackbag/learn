@@ -8,5 +8,14 @@
 	"account-select.personal": "Normal Person",
 	"account-type.teacher": "Teacher",
 	"account-type.student": "Student",
-	"account-type.personal": "Personal"
+	"account-type.personal": "Personal",
+	"text.login-student": "Login as Student",
+	"text.login-teacher": "Login as Teacher",
+	"text.register-teacher": "Register Teacher account",
+	"text.login-personal": "Login",
+	"text.register-personal": "Register",
+	"placeholder.classcode": "Class Code",
+	"placeholder.username": "Username",
+	"placeholder.email": "Email",
+	"placeholder.password": "Password"
 }
