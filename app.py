@@ -114,7 +114,7 @@ def login_personal():
         i18n = i18n_get()
         email_query = db.session.query(db.User).filter(
             func.lower(db.User.email) == func.lower(email),
-            db.User.account_type != 2
+            db.User.account_type == 0
         ).first()
 
         if email_query is None:
