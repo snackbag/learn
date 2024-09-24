@@ -17,10 +17,27 @@ body {
 }
 
 .content {
-    margin: 20px auto;
-    padding: 0 20px;
+    margin: 0 auto;
     max-width: 960px;
     width: 90%;
+}
+
+.hero {
+    padding: 100px 0;
+    background-color: #4453da;
+    color: #fafaff;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 40px;
+}
+
+.hero p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d2dbea;
+    max-width: 500px;
 }
 
 .nav {
