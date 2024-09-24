@@ -4,7 +4,7 @@ import time
 
 import database as db
 
-from flask import render_template, flash
+from flask import render_template, flash, session
 from sqlalchemy import func
 
 
@@ -63,4 +63,30 @@ def register_checks(email, username, password, i18n, fallback):
     if username_query is not None or email_query is not None:
         return True, render_template(fallback, i18n=i18n)
 
-    return False
+    return False, None
+
+
+def login(email: str, password: str, account_type: int, user_id_cache, i18n, fallback: str):
+    if len(email) < 8 or len(email) > 50:
+        return True, "Email must be between 8 and 50 characters long"
+
+    if len(password) < 8 or len(password) > 50:
+        return True, "Password must be between 8 and 50 characters long"
+
+    email_query = db.session.query(db.User).filter(
+        func.lower(db.User.email) == func.lower(email),
+        db.User.account_type == account_type
+    ).first()
+
+    if email_query is None:
+        flash(i18n("error.notfound.user"))
+        return True, render_template(fallback, i18n=i18n)
+
+    if not verify_password(email_query.salt, email_query.password, password):
+        flash(i18n("error.notfound.user"))
+        return True, render_template(fallback, i18n=i18n)
+
+    session['user_id'] = str(email_query.user_id)
+    user_id_cache.cache(email_query)
+
+    return False, None
