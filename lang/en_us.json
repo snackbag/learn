@@ -21,7 +21,7 @@
 	"placeholder.email": "Email",
 	"placeholder.password": "Password",
 	"error.notfound.class": "There is no class with the specified code",
-	"error.notfound.user": "Email or password are incorrect",
+	"error.notfound.user": "Email or password are incorrect, or you might be using the wrong account type",
 	"error.exists.email": "Email is already in use",
 	"error.exists.username": "Username is already in use"
 }
