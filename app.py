@@ -92,6 +92,19 @@ def login_student():
 @app.route("/login/teacher", methods=["GET", "POST"])
 @not_logged_in
 def login_teacher():
+    if request.method == "POST":
+        if not helper.has_keys(["email", "password"], request.form):
+            return "Illegal request: Request form requires email and password"
+
+        email = request.form["email"]
+        password = request.form["password"]
+
+        login_help = helper.login(email, password, 1, Globals.user_id_cache, i18n_get(), "login/teacher.html")
+        if login_help[0]:
+            return login_help[1]
+
+        return redirect(url_for("index"))
+
     return render_template("login/teacher.html", i18n=i18n_get())
 
 
@@ -105,28 +118,9 @@ def login_personal():
         email = request.form["email"]
         password = request.form["password"]
 
-        if len(email) < 8 or len(email) > 50:
-            return "Email must be between 8 and 50 characters long"
-
-        if len(password) < 8 or len(password) > 50:
-            return "Password must be between 8 and 50 characters long"
-
-        i18n = i18n_get()
-        email_query = db.session.query(db.User).filter(
-            func.lower(db.User.email) == func.lower(email),
-            db.User.account_type != 2
-        ).first()
-
-        if email_query is None:
-            flash(i18n("error.notfound.user"))
-            return render_template("login/personal.html", i18n=i18n)
-
-        if not helper.verify_password(email_query.salt, email_query.password, password):
-            flash(i18n("error.notfound.user"))
-            return render_template("login/personal.html", i18n=i18n)
-
-        session['user_id'] = str(email_query.user_id)
-        Globals.user_id_cache.cache(email_query)
+        login_help = helper.login(email, password, 0, Globals.user_id_cache, i18n_get(), "login/personal.html")
+        if login_help[0]:
+            return login_help[1]
 
         return redirect(url_for("index"))
 
@@ -150,35 +144,10 @@ def register_personal():
         username = request.form["username"]
         password = request.form["password"]
 
-        if len(email) < 8 or len(email) > 50:
-            return "Email must be between 8 and 50 characters long"
-
-        if len(username) < 4 or len(username) > 26:
-            return "Username must be between 4 and 26 characters long"
-
-        if len(password) < 8 or len(password) > 50:
-            return "Password must be between 8 and 50 characters long"
-
         i18n = i18n_get()
-
-        email_query = db.session.query(db.User).filter(
-            func.lower(db.User.email) == func.lower(email),
-            db.User.account_type != 2
-        ).first()
-
-        if email_query is not None:
-            flash(i18n("error.exists.email"))
-
-        username_query = db.session.query(db.User).filter(
-            func.lower(db.User.username) == func.lower(username),
-            db.User.account_type != 2
-        ).first()
-
-        if username_query is not None:
-            flash(i18n("error.exists.username"))
-
-        if username_query is not None or email_query is not None:
-            return render_template("register/personal.html", i18n=i18n)
+        checks = helper.register_checks(email, username, password, i18n, "register/personal.html")
+        if checks[0]:
+            return checks[1]
 
         pwd = helper.create_password(password)
 
@@ -204,8 +173,39 @@ def register_personal():
 @app.route("/register/teacher", methods=["GET", "POST"])
 @not_logged_in
 def register_teacher():
+    if request.method == "POST":
+        if not helper.has_keys(["email", "username", "password"], request.form):
+            return "Illegal request: Request form requires email, username and password"
+
+        email = request.form["email"]
+        username = request.form["username"]
+        password = request.form["password"]
+
+        i18n = i18n_get()
+        checks = helper.register_checks(email, username, password, i18n, "register/teacher.html")
+        if checks[0]:
+            return checks[1]
+
+        pwd = helper.create_password(password)
+
+        entry = db.User(
+            account_type=1,
+            email=email,
+            username=username,
+            salt=pwd[0],
+            password=pwd[1]
+        )
+
+        db.session.add(entry)
+        db.session.commit()
+
+        session['user_id'] = str(entry.user_id)
+        Globals.user_id_cache.cache(entry)
+
+        return redirect(url_for("index"))
+
     return render_template("register/teacher.html", i18n=i18n_get())
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
