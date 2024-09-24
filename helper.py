@@ -2,6 +2,11 @@ import hashlib
 import secrets
 import time
 
+import database as db
+
+from flask import render_template, flash
+from sqlalchemy import func
+
 
 def millis() -> int:
     """
@@ -27,3 +32,35 @@ def verify_password(salt: str, hashed_password: str, input_password: str) -> boo
     hashed_input_password = hashlib.sha256(salted_input_password.encode()).hexdigest()
 
     return hashed_input_password == hashed_password
+
+
+def register_checks(email, username, password, i18n, fallback):
+    if len(email) < 8 or len(email) > 50:
+        return True, "Email must be between 8 and 50 characters long"
+
+    if len(username) < 4 or len(username) > 26:
+        return True, "Username must be between 4 and 26 characters long"
+
+    if len(password) < 8 or len(password) > 50:
+        return True, "Password must be between 8 and 50 characters long"
+
+    email_query = db.session.query(db.User).filter(
+        func.lower(db.User.email) == func.lower(email),
+        db.User.account_type != 2
+    ).first()
+
+    if email_query is not None:
+        flash(i18n("error.exists.email"))
+
+    username_query = db.session.query(db.User).filter(
+        func.lower(db.User.username) == func.lower(username),
+        db.User.account_type != 2
+    ).first()
+
+    if username_query is not None:
+        flash(i18n("error.exists.username"))
+
+    if username_query is not None or email_query is not None:
+        return True, render_template(fallback, i18n=i18n)
+
+    return False
