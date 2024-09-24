@@ -92,6 +92,38 @@ def login_student():
 @app.route("/login/teacher", methods=["GET", "POST"])
 @not_logged_in
 def login_teacher():
+    if request.method == "POST":
+        if not helper.has_keys(["email", "password"], request.form):
+            return "Illegal request: Request form requires email and password"
+
+        email = request.form["email"]
+        password = request.form["password"]
+
+        if len(email) < 8 or len(email) > 50:
+            return "Email must be between 8 and 50 characters long"
+
+        if len(password) < 8 or len(password) > 50:
+            return "Password must be between 8 and 50 characters long"
+
+        i18n = i18n_get()
+        email_query = db.session.query(db.User).filter(
+            func.lower(db.User.email) == func.lower(email),
+            db.User.account_type == 1
+        ).first()
+
+        if email_query is None:
+            flash(i18n("error.notfound.user"))
+            return render_template("login/personal.html", i18n=i18n)
+
+        if not helper.verify_password(email_query.salt, email_query.password, password):
+            flash(i18n("error.notfound.user"))
+            return render_template("login/personal.html", i18n=i18n)
+
+        session['user_id'] = str(email_query.user_id)
+        Globals.user_id_cache.cache(email_query)
+
+        return redirect(url_for("index"))
+
     return render_template("login/teacher.html", i18n=i18n_get())
 
 
