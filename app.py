@@ -210,6 +210,7 @@ def register_teacher():
 
 
 @app.route('/panel')
+@login_required
 def panel():
     return render_template("panel/index.html", i18n=i18n_get())
 
