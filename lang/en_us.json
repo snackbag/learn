@@ -1,5 +1,11 @@
 {
-	"home.title": "Home",
+	"title.home": "Home",
+	"title.login": "Login",
+	"title.login.personal": "Login",
+	"title.login.teacher": "Login",
+	"title.login.student": "Login",
+	"title.register.personal": "Register",
+	"title.register.teacher": "Register",
 	"nav.subjects": "Subjects",
 	"nav.about": "About us",
 	"button.login": "Sign In",
