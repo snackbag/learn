@@ -46,7 +46,7 @@ def not_logged_in(view):
 @app.route("/")
 @not_logged_in
 def index():
-    return render_template("index.html", i18n=i18n_get())
+    return render_template("base.html", i18n=i18n_get())
 
 
 @app.route("/logout")
