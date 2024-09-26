@@ -22,6 +22,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = user_id
+        g.user_db = db.session.query(db.User).filter_by(user_id=int(user_id)).first()
 
 
 def login_required(view):
@@ -37,12 +38,13 @@ def not_logged_in(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is not None:
-            return redirect(url_for("index"))
+            return redirect(url_for("panel"))
         return view(**kwargs)
     return wrapped_view
 
 
 @app.route("/")
+@not_logged_in
 def index():
     return render_template("index.html", i18n=i18n_get())
 
@@ -205,6 +207,11 @@ def register_teacher():
         return redirect(url_for("index"))
 
     return render_template("register/teacher.html", i18n=i18n_get())
+
+
+@app.route('/panel')
+def panel():
+    return render_template("panel/index.html", i18n=i18n_get())
 
 
 if __name__ == '__main__':
