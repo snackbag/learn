@@ -1,44 +1,42 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div class="nav">
-        <div>
-            <a href="{{ url_for('index') }}" class="no-style">
-                <div class="logo">
-                    <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
-                    <p>LEARN</p>
-                </div>
-            </a>
-            <div class="nav-items">
-                <a href="/"><p>{{ i18n('nav.subjects') }}</p></a>
-                <a><p>{{ i18n('nav.about') }}</p></a>
-            </div>
-        </div>
-        <div>
-            {% if g.user != None %}
-                <div class="nav-items">
-                    <a><p>Profile</p></a>
-                </div>
-            {% else %}
-                <a href="{{ url_for('login') }}">
-                    <button>{{ i18n('button.login') }}</button>
-                </a>
-            {% endif %}
+<div class="nav">
+    <div>
+        <a class="no-style" href="{{ url_for('index') }}"><div class="logo">
+            <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
+            <p>LEARN</p>
+        </div></a>
+        <div class="nav-items">
+            <a href="/"><p>{{ i18n('nav.subjects') }}</p></a>
+            <a><p>{{ i18n('nav.about') }}</p></a>
         </div>
     </div>
-    <div class="content {% block content_classes %}{% endblock %}">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+    <div>
+        {% if g.user != None %}
+        <div class="nav-items">
+            <a><p>Profile</p></a>
+        </div>
+        {% else %}
+        <a href="{{ url_for('login') }}">
+            <button>{{ i18n('button.login') }}</button>
+        </a>
+        {% endif %}
+    </div>
+</div>
+<div class="content">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 
-        {% block content %}
-        {% endblock %}
-    </div>
-    {% block after_content %}
+    {% block content %}
     {% endblock %}
+</div>
+{% block after_content %}
+{% endblock %}
 {% endblock %}
