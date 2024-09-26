@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="panel-wrapper">
+    <div class="panel-nav">
+        <a class="no-style" href="{{ url_for('index') }}"><div class="logo">
+            <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
+            <p>LEARN</p>
+        </div></a>
+    </div>
+    <div class="panel-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+{% block after_content %}
+{% endblock %}
+
+<!--
+- vakken laten zien
+- kaarten objecten laten zien
+- profiel
+- leaderboard
+-->
+{% endblock %}
