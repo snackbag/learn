@@ -1,0 +1,19 @@
+.profile-boxes {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-box {
+    border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 0 10px;
+    min-height: 100px;
+    width: 100%;
+    border-radius: 16px;
+}
+
+@media screen and (max-width: 800px) {
+    .profile-boxes {
+        flex-wrap: wrap;
+    }
+}
