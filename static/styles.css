@@ -53,21 +53,36 @@ body {
     height: 103px;
 }
 
-.nav .logo {
+.panel-nav {
+    position: fixed;
+    color: white;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    background-color: #4453da;
+    height: 100vh;
+    padding: 0 20px;
+}
+
+.logo {
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
 }
 
-.nav .logo img {
+.logo img {
     height: 64px;
     border-radius: 15px;
 }
 
-.nav .logo p {
+.logo p {
     font-size: 32px;
     font-weight: bold;
+}
+
+.logo.white p {
+    color: white;
 }
 
 .nav > div {
