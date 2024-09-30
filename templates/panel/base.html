@@ -13,12 +13,20 @@
             </div>
         </a>
 
+        <div class="panel-nav-parts">
+            <p><i class="fa-solid fa-house"></i> {{ i18n('button.home') }}</p>
+            <p><i class="fa-solid fa-book"></i> {{ i18n('button.learn') }}</p>
+            <p><i class="fa-solid fa-earth-americas"></i> {{ i18n('button.subjects') }}</p>
+            <p><i class="fa-solid fa-medal"></i> {{ i18n('button.leaderboard') }}</p>
+        </div>
+
         <div class="big-funny-blue-buttons">
             <i class="fa-solid fa-user"></i>
             <i class="fa-solid fa-bell"></i>
 
             <div style="margin-left: auto">
-                <a class="no-style" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket" style="rotate: 180deg"></i></a>
+                <a class="no-style" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"
+                                                                      style="rotate: 180deg"></i></a>
             </div>
         </div>
     </div>
