@@ -212,7 +212,7 @@ def register_teacher():
 @app.route('/panel')
 @login_required
 def panel():
-    return render_template("panel/base.html", i18n=i18n_get())
+    return render_template("panel/home.html", i18n=i18n_get())
 
 
 if __name__ == '__main__':
