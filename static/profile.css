@@ -34,6 +34,16 @@
     background-color: rgba(255, 255, 255, 0.15);
 }
 
+.panel-wrapper {
+    display: flex;
+}
+
+.panel-content {
+    margin-left: 300px;
+    width: 100%;
+    min-height: 100%;
+}
+
 @media screen and (max-width: 800px) {
     .profile-boxes {
         flex-wrap: wrap;
