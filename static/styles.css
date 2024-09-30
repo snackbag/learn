@@ -64,6 +64,35 @@ body {
     padding: 0 20px;
 }
 
+.panel-nav-parts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.panel-nav-parts p {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: calc(100% - 20px);
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 10px 10px;
+    margin: 0;
+    font-size: 17px;
+
+    transition: 0.05s;
+}
+
+.panel-nav-parts p:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.panel-nav-parts p i {
+    font-size: 22px;
+
+}
+
 .logo {
     display: flex;
     align-items: center;
