@@ -51,21 +51,74 @@ body {
     height: 103px;
 }
 
-.nav .logo {
+.panel-nav {
+    position: fixed;
+    color: white;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    background-color: #4453da;
+    height: 100vh;
+    padding: 0 20px;
+}
+
+.panel-nav-parts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.panel-nav-parts p {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: calc(100% - 20px);
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 10px 10px;
+    margin: 0;
+    font-size: 17px;
+
+    transition: 0.05s;
+}
+
+.panel-nav-parts p:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.panel-nav-parts a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.panel-nav-parts a:visited {
+    color: inherit;
+}
+
+.panel-nav-parts p i {
+    font-size: 22px;
+
+}
+
+.logo {
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
 }
 
-.nav .logo img {
+.logo img {
     height: 64px;
     border-radius: 15px;
 }
 
-.nav .logo p {
+.logo p {
     font-size: 32px;
     font-weight: bold;
+}
+
+.logo.white p {
+    color: white;
 }
 
 .nav > div {

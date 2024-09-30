@@ -1,0 +1,51 @@
+.profile-boxes {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-box {
+    border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 0 10px;
+    min-height: 100px;
+    width: 100%;
+    border-radius: 16px;
+}
+
+.big-funny-blue-buttons {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.big-funny-blue-buttons i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.big-funny-blue-buttons i:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.panel-wrapper {
+    display: flex;
+}
+
+.panel-content {
+    margin-left: 300px;
+    width: 100%;
+    min-height: 100%;
+}
+
+@media screen and (max-width: 800px) {
+    .profile-boxes {
+        flex-wrap: wrap;
+    }
+}
