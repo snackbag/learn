@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
+{% block title %}{{ i18n('title.panel') }}{% endblock %}
+{% block head %}
+<script src="https://kit.fontawesome.com/821f3e149e.js" crossorigin="anonymous"></script>
+{% endblock %}
 {% block body %}
 <div class="panel-wrapper">
     <div class="panel-nav">
-        <a class="no-style" href="{{ url_for('index') }}"><div class="logo">
-            <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
-            <p>LEARN</p>
-        </div></a>
+        <a class="no-style" href="{{ url_for('index') }}">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/oculi/default.svg') }}"></img>
+                <p>LEARN</p>
+            </div>
+        </a>
+
+        <div class="big-funny-blue-buttons">
+            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-bell"></i>
+
+            <div style="margin-left: auto">
+                <a class="no-style" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket" style="rotate: 180deg"></i></a>
+            </div>
+        </div>
     </div>
     <div class="panel-content">
         {% block content %}

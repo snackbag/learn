@@ -12,6 +12,28 @@
     border-radius: 16px;
 }
 
+.big-funny-blue-buttons {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.big-funny-blue-buttons i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.big-funny-blue-buttons i:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
 @media screen and (max-width: 800px) {
     .profile-boxes {
         flex-wrap: wrap;
