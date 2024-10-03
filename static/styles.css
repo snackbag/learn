@@ -281,6 +281,10 @@ a.no-style {
     margin-right: auto;
 }
 
+.hidden {
+    display: none;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
