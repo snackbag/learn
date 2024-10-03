@@ -4,7 +4,6 @@
 <h1>Manage Account</h1>
 
 <div class="account-parts">
-    <p id="change">not changed</p>
     <div class="account-part">
         <p>Username</p>
         <input name="username" id="username" type="text" value="{{ g.user_db.username }}">
@@ -29,7 +28,7 @@
 </div>
 {% endblock %}
 {% block after_content %}
-<div class="unsaved-changes hidden">
+<div class="hidden" id="unsaved">
     <p>{{ i18n("text.unsaved-changes") }}</p>
     <div>
     <button class="green">{{ i18n("button.save") }}</button>
@@ -38,12 +37,13 @@
 </div>
 
 <script type="text/javascript">
-    const changeNotify = document.getElementById("change");
+    const unsavedChanges = document.getElementById("unsaved");
     let changed = false;
 
     function setChanged() {
         changed = true;
-        changeNotify.innerText = "changed";
+        unsavedChanges.classList.remove("hidden");
+        unsavedChanges.classList.add("unsaved-changes");
     }
 
     function addChangeElement(id) {
