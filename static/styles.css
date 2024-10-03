@@ -275,10 +275,24 @@ a.no-style {
     border-radius: 30px;
 
     bottom: 20px;
+    animation-name: unsaved-changes;
+    animation-duration: 0.2s;
 }
 
 .unsaved-changes p {
     margin-right: auto;
+}
+
+@keyframes unsaved-changes {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 .hidden {
