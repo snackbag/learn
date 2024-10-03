@@ -1,0 +1,60 @@
+{% extends 'panel/base.html' %}
+{% block title %}{{ i18n('title.profile') }}{% endblock %}
+{% block content %}
+<h1>Manage Account</h1>
+
+<div class="account-parts">
+    <p id="change">not changed</p>
+    <div class="account-part">
+        <p>Username</p>
+        <input name="username" id="username" type="text" value="{{ g.user_db.username }}">
+    </div>
+    <div class="account-part">
+        <p>E-Mail Address</p>
+        <input name="email" id="email" type="email" value="{{ g.user_db.email }}">
+    </div>
+</div>
+
+<div>
+    {% if g.user_db.account_type == 0 %}
+        {% set account_type = "Normal User" %}
+    {% elif g.user_db.account_type == 1 %}
+        {% set account_type = "Teacher" %}
+    {% elif g.user_db.account_type == 2 %}
+        {% set account_type = "Student" %}
+    {% else %}
+        {% set account_type = g.user_db.account_type|string + " is not a valid account type" %}
+    {% endif %}
+    <p>Account Type: {{ account_type }}</p>
+</div>
+{% endblock %}
+{% block after_content %}
+<div class="unsaved-changes hidden">
+    <p>{{ i18n("text.unsaved-changes") }}</p>
+    <div>
+    <button class="green">{{ i18n("button.save") }}</button>
+    <button>{{ i18n("button.cancel") }}</button>
+        </div>
+</div>
+
+<script type="text/javascript">
+    const changeNotify = document.getElementById("change");
+    let changed = false;
+
+    function setChanged() {
+        changed = true;
+        changeNotify.innerText = "changed";
+    }
+
+    function addChangeElement(id) {
+        const element = document.getElementById(id);
+
+        element.addEventListener("input", function (event) {
+            setChanged();
+        });
+    }
+
+    addChangeElement("username");
+    addChangeElement("email");
+</script>
+{% endblock %}
