@@ -265,6 +265,22 @@ a.no-style {
     text-decoration: inherit;
 }
 
+.unsaved-changes {
+    position: fixed;
+    display: flex;
+    width: calc(100vw - 160px);
+    margin: 0 80px;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+
+    bottom: 20px;
+}
+
+.unsaved-changes p {
+    margin-right: auto;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
