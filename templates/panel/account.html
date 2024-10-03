@@ -31,30 +31,40 @@
 <div class="hidden" id="unsaved">
     <p>{{ i18n("text.unsaved-changes") }}</p>
     <div>
-    <button class="green">{{ i18n("button.save") }}</button>
-    <button>{{ i18n("button.cancel") }}</button>
-        </div>
+        <button id="unsaved-save" class="green">{{ i18n("button.save") }}</button>
+        <button id="unsaved-cancel">{{ i18n("button.cancel") }}</button>
+    </div>
 </div>
 
 <script type="text/javascript">
     const unsavedChanges = document.getElementById("unsaved");
     let changed = false;
 
-    function setChanged() {
-        changed = true;
-        unsavedChanges.classList.remove("hidden");
-        unsavedChanges.classList.add("unsaved-changes");
+    function setChanged(shouldChanged) {
+        changed = shouldChanged;
+
+        if (shouldChanged) {
+            unsavedChanges.classList.remove("hidden");
+            unsavedChanges.classList.add("unsaved-changes");
+        } else {
+            unsavedChanges.classList.remove("unsaved-changes");
+            unsavedChanges.classList.add("hidden");
+        }
     }
 
     function addChangeElement(id) {
         const element = document.getElementById(id);
 
         element.addEventListener("input", function (event) {
-            setChanged();
+            setChanged(true);
         });
     }
 
     addChangeElement("username");
     addChangeElement("email");
+
+    document.getElementById("unsaved-cancel").addEventListener("click", function () {
+        setChanged(false);
+    });
 </script>
 {% endblock %}
