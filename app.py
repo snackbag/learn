@@ -215,5 +215,11 @@ def panel():
     return render_template("panel/home.html", i18n=i18n_get())
 
 
+@app.route('/account')
+@login_required
+def account():
+    return render_template("panel/account.html", i18n=i18n_get())
+
+
 if __name__ == '__main__':
     app.run(debug=True)
