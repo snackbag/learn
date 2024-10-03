@@ -13,7 +13,7 @@
         </a>
 
         <div class="panel-nav-parts">
-            <a href="{{ url_for('panel') }}"><p><i class="fa-solid fa-house"></i> {{ i18n('button.home') }}</p></a>
+            <a href="{{ url_for('panel') }}"><p id="nav-sidebar-home-button"><i class="fa-solid fa-house"></i> {{ i18n('button.home') }}</p></a>
             <p><i class="fa-solid fa-book"></i> {{ i18n('button.learn') }}</p>
             <p><i class="fa-solid fa-earth-americas"></i> {{ i18n('button.subjects') }}</p>
             <p><i class="fa-solid fa-medal"></i> {{ i18n('button.leaderboard') }}</p>
@@ -35,13 +35,13 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    const homeNavButton = document.getElementById("nav-sidebar-home-button");
+
+    if (window.location.pathname === "{{ url_for('panel') }}") {
+        homeNavButton.classList.add("active");
+    }
+</script>
 {% block after_content %}
 {% endblock %}
-
-<!--
-- vakken laten zien
-- kaarten objecten laten zien
-- profiel
-- leaderboard
--->
 {% endblock %}
