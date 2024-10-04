@@ -15,7 +15,7 @@
         <div class="panel-nav-parts">
             <a href="{{ url_for('panel') }}"><p id="nav-sidebar-home-button"><i class="fa-solid fa-house"></i> {{ i18n('button.home') }}</p></a>
             <p><i class="fa-solid fa-book"></i> {{ i18n('button.learn') }}</p>
-            <p><i class="fa-solid fa-earth-americas"></i> {{ i18n('button.subjects') }}</p>
+            <a href="{{ url_for('subjects') }}"><p id="nav-sidebar-subjects-button"><i class="fa-solid fa-earth-americas"></i> {{ i18n('button.subjects') }}</p></a>
             <p><i class="fa-solid fa-medal"></i> {{ i18n('button.leaderboard') }}</p>
         </div>
 
@@ -37,9 +37,12 @@
 
 <script type="text/javascript">
     const homeNavButton = document.getElementById("nav-sidebar-home-button");
+    const subjectsNavButton = document.getElementById("nav-sidebar-subjects-button");
 
     if (window.location.pathname === "{{ url_for('panel') }}") {
         homeNavButton.classList.add("active");
+    } else if (window.location.pathname.startsWith("{{ url_for('subjects') }}")) {
+        subjectsNavButton.classList.add("active");
     }
 </script>
 {% block after_content %}
