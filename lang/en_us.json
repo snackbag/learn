@@ -36,5 +36,8 @@
 	"error.exists.email": "Email is already in use",
 	"error.exists.username": "Username is already in use",
 	"hero.title": "The best way to learn",
-	"hero.description": "Understand languages and learn why. Use exercises from teachers, or create your own"
+	"hero.description": "Understand languages and learn why. Use exercises from teachers, or create your own",
+	"subject.french": "French",
+	"subject.german": "German",
+	"subject.english": "English"
 }
