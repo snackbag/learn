@@ -231,5 +231,15 @@ def account():
     return render_template("panel/account.html", i18n=i18n_get())
 
 
+@app.route('/subjects')
+@login_required
+def subjects():
+    return render_template("panel/subjects.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all())
+
+
+@app.route('/admin/subject_creator')
+def admin_subject_creator():
+    return render_template("admin/subject_creator.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all())
+
 if __name__ == '__main__':
     app.run(debug=True)
