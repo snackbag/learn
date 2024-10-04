@@ -103,6 +103,9 @@ class UserIDCache(Cache):
 
         if not self.user_check_cache.should_use(key):
             query = db.session.query(db.User).filter_by(user_id=int(key)).first()
+            if query is None:
+                return False
+
             self.cache(query)
             return query is not None
 
