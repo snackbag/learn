@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block body %}
+    <h1>Manage subjects</h1>
+    <p>Current:</p>
+    <ul>
+        {% for subject in subjects %}
+            <li>({{ subject.id }}) {{ subject.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
