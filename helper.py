@@ -89,4 +89,7 @@ def login(email: str, password: str, account_type: int, user_id_cache, i18n, fal
     session['user_id'] = str(email_query.user_id)
     user_id_cache.cache(email_query)
 
+    email_query.last_login_date = millis()
+    db.session.commit()
+
     return False, None

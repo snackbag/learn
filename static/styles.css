@@ -86,6 +86,10 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.panel-nav-parts p.active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .panel-nav-parts a {
     color: inherit;
     text-decoration: none;
@@ -261,6 +265,40 @@ a.no-style {
     color: inherit;
     cursor: inherit;
     text-decoration: inherit;
+}
+
+.unsaved-changes {
+    position: fixed;
+    display: flex;
+    width: calc(100vw - 160px);
+    margin: 0 80px;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+
+    bottom: 20px;
+    animation-name: unsaved-changes;
+    animation-duration: 0.2s;
+}
+
+.unsaved-changes p {
+    margin-right: auto;
+}
+
+@keyframes unsaved-changes {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (max-width: 800px) {

@@ -28,6 +28,12 @@ class User(Base):
     username = Column(String)
     salt = Column(String)
     password = Column(String)
+    creation_date = Column(Integer)
+    last_login_date = Column(Integer)
+
+    xp = Column(Integer)
+    coins = Column(Integer)
+    avatar = Column(String)
 
     def __repr__(self):
         return f"<{self.__class__.__name__}({self.user_id=}, {self.account_type=}, {self.email=}, {self.username=}, {self.salt=}, {self.password=})>"
@@ -63,6 +69,70 @@ class ClassCode(Base):
 
     def __repr__(self):
         return f"<{self.__class__.__name__}({self.index=}, {self.key=}, {self.class_id})>"
+
+
+class LearningSession(Base):
+    __tablename__ = "learning_sessions"
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    creation_date = Column(Integer)
+    owner = Column(Integer)
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}({self.id=}, {self.creation_date=}, {self.owner=})>"
+
+
+class Subject(Base):
+    __tablename__ = "subjects"
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String)
+    creation_date = Column(Integer)
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}({self.id=}, {self.name=}, {self.creation_date=})>"
+
+
+class Island(Base):
+    """
+    Types:
+    0 - flashcard (for language islands)
+    """
+    __tablename__ = "islands"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
+    # 0 = flashcards (for language islands)
+    type = Column(Integer)
+    assigned_subject = Column(Integer)
+    name = Column(String)
+    owner = Column(Integer)  # a user
+    creation_date = Column(Integer)
+    last_study_date = Column(Integer)
+    visibility = Column(Integer)
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}({self.id=}, {self.type=}, {self.assigned_subject=}, {self.name=}, {self.owner=}, {self.creation_date=}, {self.last_study_date=}, {self.visibility=})>"
+
+
+class LanguageIsland(Base):
+    __tablename__ = "learning_islands"
+
+    island_id = Column(Integer, primary_key=True)
+    last_correct_answers = Column(Integer)
+    last_wrong_answers = Column(Integer)
+
+
+class LanguageIslandCard(Base):
+    __tablename__ = "language_island_cards"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    island = Column(Integer)
+    question = Column(String)
+    question_img = Column(String, nullable=True)
+    answer = Column(String)
+    answer_img = Column(String, nullable=True)
+    description = Column(String)
 
 
 engine = create_engine(f"sqlite:///database.db", echo=False)

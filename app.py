@@ -158,7 +158,12 @@ def register_personal():
             email=email,
             username=username,
             salt=pwd[0],
-            password=pwd[1]
+            password=pwd[1],
+            creation_date=helper.millis(),
+            last_login_date=helper.millis(),
+            xp=0,
+            coins=0,
+            avatar="default"
         )
 
         db.session.add(entry)
@@ -195,7 +200,12 @@ def register_teacher():
             email=email,
             username=username,
             salt=pwd[0],
-            password=pwd[1]
+            password=pwd[1],
+            creation_date=helper.millis(),
+            last_login_date=helper.millis(),
+            xp=0,
+            coins=0,
+            avatar="default_teacher"
         )
 
         db.session.add(entry)
@@ -213,6 +223,12 @@ def register_teacher():
 @login_required
 def panel():
     return render_template("panel/home.html", i18n=i18n_get())
+
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template("panel/account.html", i18n=i18n_get())
 
 
 if __name__ == '__main__':
