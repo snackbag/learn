@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
 {% block title %}Admin Panel{% endblock %}
 {% block body %}
-    <h1>Manage subjects</h1>
-    <p>Current:</p>
-    <ul>
-        {% for subject in subjects %}
-            <li>({{ subject.id }}) {{ subject.name }}</li>
-        {% endfor %}
-    </ul>
+    <div class="content">
+        <h1>Manage subjects</h1>
+        <div style="display: flex; margin-bottom: 20px">
+            <p style="margin-right: auto">woah subjects</p>
+            <button onclick="add()">Create Subject</button>
+        </div>
+        <table style="width: 100%">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Creation Date</th>
+            </tr>
+            {% for subject in subjects %}
+                <tr>
+                    <th>{{ subject.id }}</th>
+                    <th>{{ subject.name }}</th>
+                    <th>{{ subject.creation_date }}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        function add() {
+            let name = prompt("Enter the subject name");
+            fetch(`/api/add_subject/${name}`);
+            alert("Reload the page to see the updates");
+        }
+    </script>
 {% endblock %}
