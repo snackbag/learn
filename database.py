@@ -11,7 +11,7 @@ class User(Base):
     __tablename__ = "users"
 
     user_id = Column(Integer, autoincrement=True, primary_key=True)
-    account_type = Column(Integer)  # 0 = personal, 1 = teacher, 2 = student
+    account_type = Column(Integer)
     email = Column(String, nullable=True)
     username = Column(String)
     salt = Column(String)
@@ -24,7 +24,7 @@ class User(Base):
 
     # Relationships
     islands = relationship("Island", back_populates="owner_user")
-    language_islands = relationship("LanguageIsland", back_populates="owner_user")
+    language_islands = relationship("LanguageIsland", back_populates="owner_user")  # Uses user_id ForeignKey
     user_classes = relationship("UserClassLink", back_populates="user")
 
     def __repr__(self):
@@ -128,12 +128,13 @@ class LanguageIsland(Base):
     __tablename__ = "learning_islands"
 
     island_id = Column(Integer, ForeignKey('islands.id'), primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.user_id'))  # Add this line
     last_correct_answers = Column(Integer)
     last_wrong_answers = Column(Integer)
 
     # Relationships
     island = relationship("Island", back_populates="language_island")
-    owner_user = relationship("User", back_populates="language_islands", uselist=False)  # Through Island to User
+    owner_user = relationship("User", back_populates="language_islands")  # Through ForeignKey user_id
     cards = relationship("LanguageIslandCard", back_populates="island")
 
     def __repr__(self):
