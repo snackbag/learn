@@ -28,6 +28,12 @@ class User(Base):
     username = Column(String)
     salt = Column(String)
     password = Column(String)
+    creation_date = Column(Integer)
+    last_login_date = Column(Integer)
+
+    xp = Column(Integer)
+    coins = Column(Integer)
+    avatar = Column(String)
 
     def __repr__(self):
         return f"<{self.__class__.__name__}({self.user_id=}, {self.account_type=}, {self.email=}, {self.username=}, {self.salt=}, {self.password=})>"
