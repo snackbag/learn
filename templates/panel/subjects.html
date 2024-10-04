@@ -1,9 +1,20 @@
 {% extends 'panel/base.html' %}
 {% block title %}{{ i18n('title.subjects') }}{% endblock %}
 {% block content %}
-    <h1>{{ i18n('text.subjects') }}</h1>
+    <h1></h1>
 
-    {% for subject in subjects %}
-        <h1>{{ subject.name }}</h1>
-    {% endfor %}
+    <div class="subject-list">
+        {% for subject in subjects %}
+            <div {% if subject.id == current_subject %}class="active"{% endif %} onclick="switchSubject({{ subject.id }})">
+                <img src="{{ url_for('serverside_subject_icon', subject_id=subject.id) }}" alt="icon">
+                {{ i18n("subject." + subject.name) }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <script type="text/javascript">
+        function switchSubject(subjectId) {
+            window.location.replace(`/subjects/${subjectId}`)
+        }
+    </script>
 {% endblock %}
