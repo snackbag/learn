@@ -125,7 +125,7 @@ class Island(Base):
 
 
 class LanguageIsland(Base):
-    __tablename__ = "learning_islands"
+    __tablename__ = "language_islands"
 
     island_id = Column(Integer, ForeignKey('islands.id'), primary_key=True)
     user_id = Column(Integer, ForeignKey('users.user_id'))  # Add this line
@@ -145,7 +145,7 @@ class LanguageIslandCard(Base):
     __tablename__ = "language_island_cards"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    island_id = Column(Integer, ForeignKey('learning_islands.island_id'))
+    island_id = Column(Integer, ForeignKey('language_islands.island_id'))
     question = Column(String)
     question_img = Column(String, nullable=True)
     answer = Column(String)
