@@ -1,6 +1,7 @@
 import functools
+from pathlib import Path
 
-from flask import Flask, render_template, redirect, url_for, request, flash, session, g
+from flask import Flask, render_template, redirect, url_for, request, flash, session, g, send_file
 from sqlalchemy import func
 
 import database as db
@@ -234,12 +235,42 @@ def account():
 @app.route('/subjects')
 @login_required
 def subjects():
-    return render_template("panel/subjects.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all())
+    return redirect(url_for("specific_subject", subject_id=1))
 
 
-@app.route('/admin/subject_creator')
+@app.route('/subjects/<subject_id>')
+@login_required
+def specific_subject(subject_id: str):
+    if not subject_id.isdigit():
+        return "Subject ID must be a digit"
+
+    return render_template("panel/subjects.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all(), current_subject=int(subject_id))
+
+
+@app.route('/admin/subjects')
 def admin_subject_creator():
     return render_template("admin/subject_creator.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all())
+
+
+@app.route('/subject/<subject_id>/icon')
+@login_required
+def serverside_subject_icon(subject_id: str):
+    if not subject_id.isdigit():
+        return "Subject ID must be a digit"
+
+    path = Path(f"serverside_assets/subject_data/{subject_id}/icon.png")
+    if not path.exists():
+        return "No assigned icon"
+
+    return send_file(path, mimetype="image/png")
+
+
+@app.route('/api/add_subject/<subject_name>')
+def api_add_subject(subject_name: str):
+    db.session.add(db.Subject(name=subject_name, creation_date=helper.millis()))
+    db.session.commit()
+    return "OK"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
