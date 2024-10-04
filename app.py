@@ -158,7 +158,12 @@ def register_personal():
             email=email,
             username=username,
             salt=pwd[0],
-            password=pwd[1]
+            password=pwd[1],
+            creation_date=helper.millis(),
+            last_login_date=helper.millis(),
+            xp=0,
+            coins=0,
+            avatar="default"
         )
 
         db.session.add(entry)
@@ -195,7 +200,12 @@ def register_teacher():
             email=email,
             username=username,
             salt=pwd[0],
-            password=pwd[1]
+            password=pwd[1],
+            creation_date=helper.millis(),
+            last_login_date=helper.millis(),
+            xp=0,
+            coins=0,
+            avatar="default_teacher"
         )
 
         db.session.add(entry)
