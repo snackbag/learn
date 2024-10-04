@@ -12,6 +12,13 @@
         {% endfor %}
     </div>
 
+    {% if subjects|length < current_subject %}
+        <h1>Invalid subject</h1>
+    {% else %}
+        {% set subject = subjects[current_subject - 1] %}
+        <h1>{{ i18n("subject." + subject.name) }}</h1>
+    {% endif %}
+
     <script type="text/javascript">
         function switchSubject(subjectId) {
             window.location.replace(`/subjects/${subjectId}`)
