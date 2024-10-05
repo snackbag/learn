@@ -1,27 +1,60 @@
 {% extends 'panel/base.html' %}
 {% block title %}{{ i18n('title.subjects') }}{% endblock %}
 {% block content %}
-    <h1></h1>
+    <div id="subject-view">
+        <h1></h1>
 
-    <div class="subject-list">
-        {% for subject in subjects %}
-            <div {% if subject.id == current_subject %}class="active"{% endif %} onclick="switchSubject({{ subject.id }})">
-                <img src="{{ url_for('serverside_subject_icon', subject_id=subject.id) }}" alt="icon">
-                {{ i18n("subject." + subject.name) }}
+        <div class="subject-list">
+            {% for subject in subjects %}
+                <div {% if subject.id == current_subject %}class="active"{% endif %}
+                     onclick="switchSubject({{ subject.id }})">
+                    <img src="{{ url_for('serverside_subject_icon', subject_id=subject.id) }}" alt="icon">
+                    {{ i18n("subject." + subject.name) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if subjects|length < current_subject %}
+            <h1>Invalid subject</h1>
+        {% else %}
+            {% set subject = subjects[current_subject - 1] %}
+            <div style="display: flex">
+                <h1 style="margin-right: auto">{{ i18n("subject." + subject.name) }}</h1>
+                <div>
+                    <button class="green" onclick="showPopup('popup', '{{ i18n('popup.create-set') }}')"><i
+                            class="fa-solid fa-plus" style="margin-right: 10px"></i> {{ i18n('button.create-set') }}
+                    </button>
+                </div>
             </div>
-        {% endfor %}
-    </div>
 
-    {% if subjects|length < current_subject %}
-        <h1>Invalid subject</h1>
-    {% else %}
-        {% set subject = subjects[current_subject - 1] %}
-        <h1>{{ i18n("subject." + subject.name) }}</h1>
-    {% endif %}
+            {% for island in islands %}
+                <div class="island"><p>{{ island.name }}</p></div>
+            {% endfor %}
+        {% endif %}
+    </div>
 
     <script type="text/javascript">
         function switchSubject(subjectId) {
-            window.location.replace(`/subjects/${subjectId}`)
+            const url = `/subjects/${subjectId}`;
+
+            history.pushState({}, '', url);
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    // Create a temporary DOM element to parse the fetched HTML
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+
+                    // Get the #subject-view part of the new content
+                    const newSubjectView = tempDiv.querySelector('#subject-view').innerHTML;
+
+                    // Update the existing #subject-view with the new content
+                    document.querySelector('#subject-view').innerHTML = newSubjectView;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    alert('An error occurred while loading the content. Please try again.');
+                });
         }
     </script>
 {% endblock %}
