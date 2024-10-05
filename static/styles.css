@@ -365,8 +365,55 @@ tr {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.popup {
+    display: flex;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.popup-content {
+    width: 600px;
+    height: 700px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.popup-x {
+    font-size: 26px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 5px;
+}
+
+#popup-title {
+    margin: 0;
+    padding: 0;
+}
+
+.popup-x:hover {
+    color: #6e6e73;
+}
+
 @media screen and (max-width: 800px) {
     .nav {
         padding: 0 30px;
+    }
+
+    .popup-content {
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .popup-content {
+        width: 350px;
     }
 }
