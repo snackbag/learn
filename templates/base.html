@@ -17,8 +17,52 @@
     {% block head %}
     {% endblock %}
 </head>
-<body>
+<body style="overflow-x: hidden">
+
+<div class="popup" id="popup" style="display: none">
+    <div class="popup-content" id="popup-content">
+        <div style="display: flex">
+            <h1 id="popup-title" style="margin-right: auto"></h1>
+            <i id="popup-x" class="fa-solid fa-x popup-x"></i>
+        </div>
+    </div>
+</div>
+
 {% block body %}
 {% endblock %}
+
+<script type="text/javascript">
+    function showPopup(id, title) {
+        const popup = document.getElementById(id);
+        const popupX = document.getElementById("popup-x");
+        popupX.addEventListener("click", function () {
+            hidePopup(id);
+        });
+        const titleElem = document.getElementById("popup-title");
+        titleElem.innerText = title
+        popup.style.removeProperty("display");
+        disableScroll();
+    }
+
+    function hidePopup(id) {
+        const popup = document.getElementById(id);
+        popup.style.display = "none";
+        enableScroll();
+    }
+
+    function disableScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+        window.onscroll = function () {
+            window.scrollTo(scrollLeft, scrollTop);
+        };
+    }
+
+    function enableScroll() {
+        window.onscroll = function () {
+        };
+    }
+</script>
 </body>
 </html>
