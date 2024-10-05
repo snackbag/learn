@@ -244,7 +244,9 @@ def specific_subject(subject_id: str):
     if not subject_id.isdigit():
         return "Subject ID must be a digit"
 
-    return render_template("panel/subjects.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all(), current_subject=int(subject_id))
+    islands = db.session.query(db.Island).filter_by(owner=g.user_db.user_id).all()
+
+    return render_template("panel/subjects.html", i18n=i18n_get(), subjects=db.session.query(db.Subject).all(), current_subject=int(subject_id), islands=islands)
 
 
 @app.route('/admin/subjects')
