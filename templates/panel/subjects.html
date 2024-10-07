@@ -41,14 +41,10 @@
             fetch(url)
                 .then(response => response.text())
                 .then(html => {
-                    // Create a temporary DOM element to parse the fetched HTML
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = html;
 
-                    // Get the #subject-view part of the new content
                     const newSubjectView = tempDiv.querySelector('#subject-view').innerHTML;
-
-                    // Update the existing #subject-view with the new content
                     document.querySelector('#subject-view').innerHTML = newSubjectView;
                 })
                 .catch(error => {
