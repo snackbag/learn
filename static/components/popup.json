@@ -1,0 +1,11 @@
+{
+  "info": {
+    "name": "popup",
+    "allows_content": true
+  },
+  "attributes": {
+    "x_method": { "value": "hidePopup()", "required": false },
+    "title": { "value": null, "required": true },
+    "id": { "value": null, "required": true }
+  }
+}
