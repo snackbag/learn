@@ -43,6 +43,7 @@
         });
         const titleElem = document.getElementById("popup-title");
         titleElem.innerText = title
+        popup.classList.add("popup");
         popup.style.removeProperty("display");
         disableScroll();
     }
@@ -50,6 +51,7 @@
     function hidePopup(id) {
         const popup = document.getElementById(id);
         popup.style.display = "none";
+        popup.classList.remove("popup");
         enableScroll();
     }
 
